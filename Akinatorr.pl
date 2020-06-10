@@ -39,3 +39,26 @@ pol(Персонаж, [H|T]):- asserta(пол(Персонаж,H)), side(Персонаж, T),!.
 
 side(_, []):- !.
 side(Персонаж,[H|T]):- asserta(сторона(Персонаж, H)), в9(Персонаж, T),!.
+
+в9(_,[]):-!.
+в9(Персонаж, [H|_]):- asserta(вопр9(Персонаж, H)).
+% Вопросы
+question1(Answer):-write('Ваш персонаж с планеты Земля?\n0. Да\n1. Нет\n'), read(Answer).
+question2(Answer):-write('\n\nВладеет ли ваш персонаж рукопашным боем?\n0. Да\n1. Нет\n'), read(Answer).
+question3(Answer):-write('\n\nУ вашего персонажа трудный характер?\n0. Да\n1. Нет\n'), read(Answer).
+question4(Answer):-write('\n\nК какой команде принадлежит ваш персонаж?\n0. Мстители\n1. Стражи Галактики\n2. Ни к какой\n'), read(Answer).
+question5(Answer):-write('\n\nВаш персонаж человек?\n0. Да\n1.Нет\n'), read(Answer).
+question6(Answer):-write('\n\nКакими сверхспособностями владеет?\n0. Не имеет суперспособностей\n1. Суперсолдат\n2. Гений, миллиардер, плейбой, филантроп\n3. Бог\n4. Киборг( в какой-то степени)\n5. Имеет гены целлестиала\n6. Акробат, стреляющий паутиной\n7.Зеленый мутант\n8. Умеет увеличиваться/уменьшаться\n9. Пришелец\n10. Маг\n11. Суперскорость\n'), read(Answer).
+question7(Answer):-write('\n\nПол вашего персонажа?\n0. Мужской\n1. Женский\n'), read(Answer).
+question8(Answer):-write('\n\nНа какой стороне ваш персонаж?\n0. Добро\n1. Зло\n2. Скорее нейтрален\n'), read(Answer).
+question9(_,_,_,_,_,1,_,_,Answer):-write('\n\nУ вашего персонажа протез вместо руки?\n0. Да\n1. Нет\n'), read(Answer).
+question9(_,_,_,_,_,10,_,_,Answer):-write('\n\nБыл ли ваш персонаж в прошлом хирургом?\n0. Да\n1. Нет\n'), read(Answer).
+question9(1,_,0,_,_,3,_,_,Answer):-write('\n\nВаш персонаж является братом Тора?\n0. Да\n1. Нет\n'), read(Answer).
+question9(_,_,_,_,_,_,_,_,Answer):-write('\n\nВаш персонаж знаком с Грутом?\n0. Да\n1. Нет\n'), read(Answer).
+question9(_,_,_,_,_,6,_,_,Answer):-write('\n\nВаш персонаж является подростком?\n0. Да\n1. Нет\n'), read(Answer).
+add_character(0, List):-write('\nВведите имя вашего персонажа -- '), read_str(Имя), name(Персонаж, Имя), add_in_bd(Персонаж, List),write('Данные внесены...'), !.
+add_character(1,_):-!.
+add_in_bd(CharName, List):- append('iz7.txt'), nl, write(CharName), nl, write_list(List), told.
+check_answers(Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9):- откуда(Character,Answer1),рукопашка(Character,Answer2),характер(Character,Answer3),команда(Character,Answer4),сущность(Character,Answer5),сверхспособность(Character,Answer6),пол(Character,Answer7),сторона(Character,Answer8),вопр9(Character,Answer9),write('Ваш персонаж:   '),write_str(Character),clear_base.
+check_answers(Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9):-write('Персонаж не был найден!!!!\nВнести в базу:\n0. Да\n1. Нет\n'), read(Answer),add_character(Answer,[Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9]),clear_base.
+clear_base:- удалить_персонажа,удалить_рукопашка,удалить_характер,удалить_команда,удалить_сущность,удалить_сверхспособность,удалить_пол,удалить_сторона,удалить_вопр9.
