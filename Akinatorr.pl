@@ -62,3 +62,23 @@ add_in_bd(CharName, List):- append('iz7.txt'), nl, write(CharName), nl, write_li
 check_answers(Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9):- откуда(Character,Answer1),рукопашка(Character,Answer2),характер(Character,Answer3),команда(Character,Answer4),сущность(Character,Answer5),сверхспособность(Character,Answer6),пол(Character,Answer7),сторона(Character,Answer8),вопр9(Character,Answer9),write('Ваш персонаж:   '),write_str(Character),clear_base.
 check_answers(Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9):-write('Персонаж не был найден!!!!\nВнести в базу:\n0. Да\n1. Нет\n'), read(Answer),add_character(Answer,[Answer1,Answer2,Answer3,Answer4,Answer5,Answer6,Answer7,Answer8,Answer9]),clear_base.
 clear_base:- удалить_персонажа,удалить_рукопашка,удалить_характер,удалить_команда,удалить_сущность,удалить_сверхспособность,удалить_пол,удалить_сторона,удалить_вопр9.
+
+% Очистка базы данных
+
+удалить_персонажа:- repeat,(откуда(X,Y) -> retract(откуда(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_рукопашка:- repeat,(рукопашка(X,Y) -> retract(рукопашка(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_характер:- repeat,(характер(X,Y) -> retract(характер(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_команда:- repeat,(команда(X,Y) -> retract(команда(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_сущность:- repeat,(сущность(X,Y) -> retract(сущность(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_сверхспособность:- repeat,(сверхспособность(X,Y) -> retract(сверхспособность(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_пол:- repeat,(пол(X,Y) -> retract(пол(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_сторона:- repeat,(сторона(X,Y) -> retract(сторона(X,Y)), fail;X=nil,Y=nil, !).
+
+удалить_вопр9:- repeat,(вопр9(X,Y) -> retract(вопр9(X,Y)), fail;X=nil,Y=nil, !).
